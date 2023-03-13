@@ -37,14 +37,14 @@ Route::resource('products/products', ProductsController::class);
 // Route::get('InvoicesDetails/{id}', [InvoicesDetailsController::class,'edit']);
 Route::get('/section/{id}', [InvoiceController::class,'getproducts']);
 
-Route::post('/edit_invoice/{id}', [InvoiceController::class,'edit']);
-Route::post('/update/{id}', [InvoiceController::class,'update']);
+Route::get('/edit_invoice/{id}', [InvoiceController::class,'edit']);
+
 
 Route::get('invoices_report', [Invoices_Report::class,'index']);
-Route::post('/Search_invoices', [Invoices_Report::class,'Search_invoices']);
+Route::post('Search_invoices', [Invoices_Report::class,'Search_invoices']);
 
 
-Route::resource('width',[Customers_Report::class,'index']);
-Route::get('Search_customers',[Customers_Report::class,'Search_customers']);
+// Route::resource('width',[Customers_Report::class,'index']);
+// Route::get('Search_customers',[Customers_Report::class,'Search_customers']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

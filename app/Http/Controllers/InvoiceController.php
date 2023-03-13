@@ -149,6 +149,7 @@ class InvoiceController extends Controller
         session()->flash('edit', 'تم تعديل الفاتورة بنجاح');
         return back();
 
+
     }
 
     /**
@@ -157,10 +158,10 @@ class InvoiceController extends Controller
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request , invoice $invoice)
+    public function destroy(Request $request)
     {
         $id = $request->invoice_id;
-        $invoices = invoice::where('id', $id)->first();
+        $invoices = Invoice::where('id', $id)->first();
         $Details = invoices_attachments::where('invoice_id', $id)->first();
 
          $id_page =$request->id_page;
@@ -175,16 +176,33 @@ class InvoiceController extends Controller
 
         $invoices->forceDelete();
         session()->flash('delete_invoice');
-        return redirect('/invoices');
+        return redirect('/invoices/invoices');
 
         }
 
         else {
 
             $invoices->delete();
-
-            return 444;
+            session()->flash('archive_invoice');
+            return redirect('/Archive');
         }
+
+
+
+
+
+
+        $id = $request->invoice_id;
+        $invoices = Invoice::where('id', $id)->first();
+
+        $invoices->Delete();
+        session()->flash('delete_invoice');
+
+        return redirect('/invoice');
+
+
+
+
     }
 
     public function getproducts($id) {

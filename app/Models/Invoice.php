@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Invoice extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $fillable = [
         'invoice_number',
         'invoice_Date',
@@ -27,6 +30,7 @@ class Invoice extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
     public function section()
     {
         return $this->belongsTo(sections::class);

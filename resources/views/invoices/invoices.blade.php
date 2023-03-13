@@ -10,6 +10,8 @@
 <link href="{{URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+<!--Internal   Notify -->
+<link href="{{ URL::asset('assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
 @endsection
 @section('page-header')
 				<!-- breadcrumb -->
@@ -24,6 +26,18 @@
 				<!-- breadcrumb -->
 @endsection
 @section('content')
+
+@if (session()->has('delete_invoice'))
+        <script>
+            window.onload = function() {
+                notif({
+                    msg: "تم حذف الفاتورة بنجاح",
+                    type: "success"
+                })
+            }
+
+        </script>
+    @endif
 				<!-- row -->
 				<div class="row">
 
@@ -35,7 +49,7 @@
                             <div class="card mg-b-20">
                                 <div class="card-header pb-0">
 
-                                    <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
+                                    <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:rgb(243, 242, 247)"><i
                                             class="fas fa-plus"></i>&nbsp; اضافة فاتورة</a>
 
                                     </div>
@@ -93,7 +107,12 @@
                                                             <div class="dropdown-menu tx-13">
                                                                 <a class="dropdown-item" href="{{url('edit_invoice')}}/{{$invoice->id}}">تعديل الفاتورة</a>
 
+                                                                <a class="dropdown-item" href="#" data-invoice_id="{{ $invoice->id }}"
+                                                                    data-toggle="modal" data-target="#delete_invoice"><i
+                                                                        class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;حذف
+                                                                    الفاتورة</a>
                                                             </div>
+
                                                         </div>
 
                                                     </td>
@@ -120,7 +139,7 @@
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
-                                            <form action="{{ url('invoices.destroy') }}" method="post">
+                                            <form action="{{route('invoices.destroy', 'test')}}" method="post">
                                                 {{ method_field('delete')}}
                                                 {{ csrf_field() }}
                                         </div>
@@ -165,4 +184,18 @@
 <script src="{{URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
 <!--Internal  Datatable js -->
 <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
+ <!--Internal  Notify js -->
+ <script src="{{ URL::asset('assets/plugins/notify/js/notifIt.js') }}"></script>
+ <script src="{{ URL::asset('assets/plugins/notify/js/notifit-custom.js') }}"></script>
+
+
+<script>
+    $('#delete_invoice').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+        var invoice_id = button.data('invoice_id')
+        var modal = $(this)
+        modal.find('.modal-body #invoice_id').val(invoice_id);
+    })
+
+</script>
 @endsection

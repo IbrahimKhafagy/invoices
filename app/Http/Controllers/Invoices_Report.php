@@ -15,8 +15,6 @@ class Invoices_Report extends Controller
     public function Search_invoices( Request $request){
 
         $rdio = $request->rdio;
-
-
  // في حالة البحث بنوع الفاتورة
 
     if ($rdio == 1) {

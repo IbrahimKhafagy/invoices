@@ -15,7 +15,7 @@
     <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 
 @section('title')
-    تقارير الفواتير
+    تقرير الفواتير
 @stop
 @endsection
 @section('page-header')
@@ -56,8 +56,9 @@
             <div class="card-header pb-0">
 
                 <form action="/Search_invoices" method="POST" role="search" autocomplete="off">
-                    {{ csrf_field() }}
 
+                    {{ csrf_field('patch')}}
+                    @csrf
 
 
                     <div class="col-lg-3">
@@ -75,12 +76,13 @@
                     <div class="row">
 
                         <div class="col-lg-3 mg-t-20 mg-lg-t-0" id="type">
+
                             <p class="mg-b-10">تحديد نوع الفواتير</p><select class="form-control select2" name="type"
                                 required>
                                 <option value="{{ $type ?? 'حدد نوع الفواتير' }}" selected>
                                     {{ $type ?? 'حدد نوع الفواتير' }}
                                 </option>
-
+                                <option value="الكل">كل الفواتير</option>
                                 <option value="مدفوعة">الفواتير المدفوعة</option>
                                 <option value="غير مدفوعة">الفواتير الغير مدفوعة</option>
                                 <option value="مدفوعة جزئيا">الفواتير المدفوعة جزئيا</option>
@@ -121,7 +123,7 @@
                     </div><br>
 
                     <div class="row">
-                        <div class="col-m-1 col-md-2">
+                        <div class="col-sm-1 col-md-1">
                             <button class="btn btn-primary btn-block">بحث</button>
                         </div>
                     </div>

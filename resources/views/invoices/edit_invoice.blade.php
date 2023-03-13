@@ -45,10 +45,12 @@
             <div class="card">
                 <div class="card-body">
 
-                    <form action="{{ url('invoices/update')}}/{{$invoices->id}}" method="post" autocomplete="off">
-                        {{ method_field('patch') }}
+                    <form action="{{ url('Invoice/update')}}"  method="POST" autocomplete="off">
+
                         {{ csrf_field() }}
-                        {{-- 1
+
+
+
                         <div class="row">
                             <div class="col">
                                 <label for="inputName" class="control-label">رقم الفاتورة</label>
@@ -276,4 +278,4 @@
     </script>
 
 
-@endsection --}}
+@endsection
